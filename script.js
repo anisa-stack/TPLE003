@@ -311,22 +311,11 @@ function toggleInfoPanel() {
 /* ───────────────────────────────────────────────────────────────
    DATA MAHASISWA
    ─────────────────────────────────────────────────────────────── */
-async function muatDataMahasiswa() {
-  const tbody = document.getElementById('tbody-mahasiswa');
-  tbody.innerHTML = `<tr><td colspan="4" class="loading-row"><div class="loading-spinner"></div> Memuat data mahasiswa...</td></tr>`;
-
-  try {
-    const res  = await fetch(JSON_PATH.mahasiswa);
-    const json = await res.json();
-    /* Format PHPMyAdmin: ambil array dari elemen ke-3 (index 2) */
-    const data = json[2]?.data ?? json;
-    state.dataMahasiswa = data;
-    renderTabelMahasiswa(data);
-  } catch (err) {
-    console.error('Gagal memuat mahasiswa.json:', err);
-    tbody.innerHTML = `<tr><td colspan="4" class="no-data">Gagal memuat data.</td></tr>`;
-  }
+function muatDataMahasiswa() {
+  state.dataMahasiswa = dataContohMahasiswa();
+  renderTabelMahasiswa(state.dataMahasiswa);
 }
+
 function renderTabelMahasiswa(data) {
   const tbody = document.getElementById('tbody-mahasiswa');
   const count = document.getElementById('mahasiswa-count');
@@ -367,48 +356,9 @@ function filterMahasiswa() {
 /* ───────────────────────────────────────────────────────────────
    DATA DOSEN
    ─────────────────────────────────────────────────────────────── */
-async function muatDataDosen() {
-  const tbody = document.getElementById('tbody-dosen');
-  tbody.innerHTML = `<tr><td colspan="6" class="loading-row"><div class="loading-spinner"></div> Memuat data dosen...</td></tr>`;
-
-  try {
-    const [resDosen, resDosenMatkul, resMatkul] = await Promise.all([
-      fetch(JSON_PATH.dosen),
-      fetch(JSON_PATH.dosenMatkul),
-      fetch(JSON_PATH.matkul),
-    ]);
-
-    const jsonDosen      = await resDosen.json();
-    const jsonDosenMatkul = await resDosenMatkul.json();
-    const jsonMatkul     = await resMatkul.json();
-
-    const dosen      = jsonDosen[2]?.data      ?? jsonDosen;
-    const dosenMatkul = jsonDosenMatkul[2]?.data ?? jsonDosenMatkul;
-    const matkul     = jsonMatkul[2]?.data      ?? jsonMatkul;
-
-    /* Buat peta matkul_id → nama */
-    const mapMatkul = {};
-    matkul.forEach(m => { mapMatkul[m.id] = m.nama; });
-
-    /* Buat peta dosen_id → array nama matkul */
-    const mapDosenMatkul = {};
-    dosenMatkul.forEach(dm => {
-      if (!mapDosenMatkul[dm.dosen_id]) mapDosenMatkul[dm.dosen_id] = [];
-      mapDosenMatkul[dm.dosen_id].push(mapMatkul[dm.matkul_id] || dm.matkul_id);
-    });
-
-    /* Gabungkan ke data dosen */
-    const data = dosen.map(d => ({
-      ...d,
-      mata_kuliah: mapDosenMatkul[d.id] || [],
-    }));
-
-    state.dataDosen = data;
-    renderTabelDosen(data);
-  } catch (err) {
-    console.error('Gagal memuat data dosen:', err);
-    tbody.innerHTML = `<tr><td colspan="6" class="no-data">Gagal memuat data.</td></tr>`;
-  }
+function muatDataDosen() {
+  state.dataDosen = dataContohDosen();
+  renderTabelDosen(state.dataDosen);
 }
 
 function renderTabelDosen(data) {
@@ -478,23 +428,10 @@ function bukaModulDetail(matkulId) {
   navigateTo('modul-detail', { matkul });
 }
 
-async function renderModulDetail(matkul) {
+function renderModulDetail(matkul) {
   const title = document.getElementById('detail-matkul-title');
-  const list  = document.getElementById('modul-list');
-
   title.innerHTML = `${matkul.icon} ${matkul.nama}`;
-  list.innerHTML  = `<div class="loading-row"><div class="loading-spinner"></div> Memuat modul...</div>`;
-
-  try {
-    const res  = await fetch(JSON_PATH.modul);
-    const json = await res.json();
-    const semua = json[2]?.data ?? json;
-    const data  = semua.filter(m => String(m.matkul_id) === String(matkul.id));
-    tampilkanListModul(data, matkul);
-  } catch (err) {
-    console.error('Gagal memuat modul.json:', err);
-    list.innerHTML = `<div class="empty-modul">Gagal memuat modul.</div>`;
-  }
+  tampilkanListModul(dataContohModul(matkul.id), matkul);
 }
 
 function tampilkanListModul(data, matkul) {
@@ -540,12 +477,113 @@ function esc(str) {
 }
 
 /* ───────────────────────────────────────────────────────────────
-   PATH FILE JSON
+   DATA STATIS (dari JSON export PHPMyAdmin)
    ─────────────────────────────────────────────────────────────── */
-const JSON_PATH = {
-  mahasiswa  : 'data/mahasiswa.json',
-  dosen      : 'data/dosen.json',
-  dosenMatkul: 'data/dosen_matkul.json',
-  matkul     : 'data/mata_kuliah.json',
-  modul      : 'data/modul.json',
+
+const _DATA_MAHASISWA = [
+  {"id":"1","nim":"241011401783","nama":"AHMAD ZACKY ALAMSYAH","no_telepon":"08989665793"},
+  {"id":"2","nim":"241011403166","nama":"ALFRED RAHMAT SENTOSA HAREFA","no_telepon":"081263053122"},
+  {"id":"3","nim":"241011400196","nama":"ARYA ARESKA RAUZIAN","no_telepon":"081802802245"},
+  {"id":"4","nim":"241011400202","nama":"ARYO MAESO AJI","no_telepon":"085740234209"},
+  {"id":"5","nim":"241011401354","nama":"ATTHORIQ RHEVAL FAHLEVI","no_telepon":"081380999010"},
+  {"id":"6","nim":"241011400872","nama":"DENISE FEBRY SETIAWAN","no_telepon":"0895347360049"},
+  {"id":"7","nim":"241011402218","nama":"DESTIN FARISA SAMAKATUL MUSRIKAH","no_telepon":"087712021772"},
+  {"id":"8","nim":"241011401614","nama":"FAHRI SAPUTRA","no_telepon":"089674374257"},
+  {"id":"9","nim":"241011402102","nama":"GILANG TRI SATRIA KURNIAWAN","no_telepon":"081292355118"},
+  {"id":"10","nim":"241011401970","nama":"GIWANG KATON SISWO PANGUDI","no_telepon":"088210780908"},
+  {"id":"11","nim":"241011402523","nama":"HANGGA ADIT RHAMDANI","no_telepon":"085839849296"},
+  {"id":"12","nim":"241011400221","nama":"JOS VIKEN DARMASAH GUNAWAN","no_telepon":"081380548248"},
+  {"id":"13","nim":"241011403133","nama":"KAYLA OLIVIA RAHMA KALESARAN","no_telepon":"088212741019"},
+  {"id":"14","nim":"241011402956","nama":"M. HAFIDZ AWALUDIN","no_telepon":"0895635396047"},
+  {"id":"15","nim":"241011403160","nama":"MOHAMAD ZAMANI PRASETYO","no_telepon":"085700305997"},
+  {"id":"16","nim":"241011400212","nama":"MUHAMAD RIDWAN","no_telepon":"083841301026"},
+  {"id":"17","nim":"241011401589","nama":"MUHAMMAD QOWIY","no_telepon":"085710254284"},
+  {"id":"18","nim":"241011401350","nama":"MUHAMMAD RIZKI ADI NUGRAHA","no_telepon":"082323561623"},
+  {"id":"19","nim":"241011402550","nama":"NUR ANISA FITRI","no_telepon":"088973574905"},
+  {"id":"20","nim":"241011402039","nama":"NURUL IMAM","no_telepon":"082223224730"},
+  {"id":"21","nim":"241011400163","nama":"NUZULULHAZ KHOFIFAH","no_telepon":"085802963392"},
+  {"id":"22","nim":"241011402111","nama":"RAMBAYU RIMBAJATI","no_telepon":"0895630162617"},
+  {"id":"23","nim":"241011403168","nama":"REFLY REZEKI ANGGARA SAGALA","no_telepon":"0882015016897"},
+  {"id":"24","nim":"241011400166","nama":"RIAN MAULANA","no_telepon":"085774832319"},
+  {"id":"25","nim":"241011403153","nama":"RIZAL ARNANDA","no_telepon":"0895342355210"},
+];
+
+/* Peta matkul_id → nama mata kuliah (dari mata_kuliah.json) */
+const _MAP_MATKUL = {
+  "1": "Analisa & Perancangan Sistem",
+  "2": "Cloud Computing",
+  "3": "Metode Numerik",
+  "4": "Interaksi Manusia & Komputer",
+  "5": "Data Mining",
+  "6": "Pemrograman 1",
+  "7": "Basis Data 1",
+  "8": "Teori Bahasa & Automata",
 };
+
+/* Peta dosen_id → array nama matkul (dari dosen_matkul.json) */
+const _MAP_DOSEN_MATKUL = {
+  "1": ["Analisa & Perancangan Sistem"],
+  "2": ["Cloud Computing"],
+  "3": ["Metode Numerik"],
+  "4": ["Interaksi Manusia & Komputer"],
+  "5": ["Data Mining"],
+  "6": ["Pemrograman 1"],
+  "7": ["Basis Data 1"],
+  "8": ["Teori Bahasa & Automata"],
+};
+
+const _DATA_DOSEN_RAW = [
+  {"id":"1","nidn":"0404078507","nama":"Joko Suwarno, S.Kom., M.Kom.","jenis_kelamin":"Laki-Laki","no_telepon":"081280616831"},
+  {"id":"2","nidn":"0403128603","nama":"Jaka Sutresna, S.Kom., M.Kom.","jenis_kelamin":"Laki-Laki","no_telepon":"0881388994453"},
+  {"id":"3","nidn":"0426109102","nama":"Jupron, S.Kom., M.Kom.","jenis_kelamin":"Laki-Laki","no_telepon":"081382301282"},
+  {"id":"4","nidn":"0401066503","nama":"Hadi Zakaria, S.Kom., M.M., M.Kom","jenis_kelamin":"Laki-Laki","no_telepon":"087778597991"},
+  {"id":"5","nidn":"0415079106","nama":"Zurnan Alfian, S.Kom., M.Kom","jenis_kelamin":"Laki-Laki","no_telepon":"08998444195"},
+  {"id":"6","nidn":"0311099102","nama":"Galuh Saputri, S.Kom., M.Kom.","jenis_kelamin":"Perempuan","no_telepon":"082213303751"},
+  {"id":"7","nidn":"0405109203","nama":"Octaviana Anugrah Ade Purnama, S.Kom., M.Kom.","jenis_kelamin":"Laki-Laki","no_telepon":"083870132186"},
+  {"id":"8","nidn":"0320039201","nama":"Iis Aisyah, S.Kom., M.Kom.","jenis_kelamin":"Perempuan","no_telepon":"088211251617"},
+];
+
+const _DATA_MODUL = [
+  {"id":"1","matkul_id":"6","judul_modul":"Pertemuan 2 - Dasar Pemrograman","tipe":"pdf","url_atau_path":"http://localhost/tple003/uploads/Pertemuan 2 - Dasar Pemrograman.pdf","tanggal_upload":"2026-03-14"},
+  {"id":"2","matkul_id":"2","judul_modul":"Materi Cloud (Drive)","tipe":"link","url_atau_path":"https://drive.google.com/GANTI_LINK_INI","tanggal_upload":"2025-02-12"},
+  {"id":"5","matkul_id":"6","judul_modul":"Pertemuan 3 - Input & Output Pada Java","tipe":"pdf","url_atau_path":"http://localhost/tple003/uploads/Pertemuan3.pdf","tanggal_upload":"2026-03-11"},
+  {"id":"6","matkul_id":"6","judul_modul":"Pertemuan 4 - Struktur Control","tipe":"pdf","url_atau_path":"http://localhost/tple003/uploads/Pertemuan 4 - Struktur Control.pdf","tanggal_upload":"2026-04-04"},
+  {"id":"7","matkul_id":"6","judul_modul":"Pertemuan 6 - Class","tipe":"pdf","url_atau_path":"http://localhost/tple003/uploads/Pertemuan 6 - Class.pdf","tanggal_upload":"2026-04-06"},
+  {"id":"8","matkul_id":"6","judul_modul":"Pertemuan 7 - Class (Lanjutan)","tipe":"pdf","url_atau_path":"http://localhost/tple003/uploads/Pertemuan 7 - Class (Lanjutan).pdf","tanggal_upload":"2026-04-18"},
+  {"id":"9","matkul_id":"6","judul_modul":"Pertemuan 8 - Pemrograman Berorientasi Objek","tipe":"pdf","url_atau_path":"http://localhost/tple003/uploads/Pertemuan 8 - Pemrograman Berorientasi Objek.pdf","tanggal_upload":"2026-04-25"},
+  {"id":"10","matkul_id":"6","judul_modul":"Pertemuan 9 - Pemrograman Berorientasi Objek","tipe":"pdf","url_atau_path":"http://localhost/tple003/uploads/Pertemuan 9 - Pemrograman Berorientasi Objek.pdf","tanggal_upload":"2026-04-22"},
+  {"id":"11","matkul_id":"6","judul_modul":"Pertemuan 10 - Pemrograman Berorientasi Objek","tipe":"pdf","url_atau_path":"http://localhost/tple003/uploads/Pertemuan 10 - Pemrograman Berorientasi Objek.pdf","tanggal_upload":"2026-05-02"},
+  {"id":"12","matkul_id":"6","judul_modul":"Pertemuan 11 - Exception dan Assertions","tipe":"pdf","url_atau_path":"http://localhost/tple003/uploads/Pertemuan 11 - Exception dan Assertions.pdf","tanggal_upload":"2026-05-13"},
+  {"id":"13","matkul_id":"6","judul_modul":"Pertemuan 12 - Input dan Output Lanjutan","tipe":"pdf","url_atau_path":"http://localhost/tple003/uploads/Pertemuan 12 - Input dan Output Lanjutan.pdf","tanggal_upload":"2026-05-13"},
+  {"id":"14","matkul_id":"6","judul_modul":"Pertemuan 5 - Array","tipe":"pdf","url_atau_path":"http://localhost/tple003/uploads/Pertemuan 5 - Array.pdf","tanggal_upload":"2026-04-11"},
+  {"id":"15","matkul_id":"4","judul_modul":"Pertemuan 1 - Modul ISBN","tipe":"pdf","url_atau_path":"http://localhost/tple003/uploads/Pertemuan 1 - Modul ISBN.pdf","tanggal_upload":"2026-03-02"},
+  {"id":"16","matkul_id":"1","judul_modul":"Pertemuan 1 - Sistem & Analisis Sistem","tipe":"link","url_atau_path":"https://drive.google.com/file/d/1DJyrHTPT2iHCMWo8-GofZabtEmMWXvGx/view?usp=sharing","tanggal_upload":"2026-03-03"},
+  {"id":"17","matkul_id":"1","judul_modul":"Pertemuan 2 - Metode Sistem","tipe":"link","url_atau_path":"https://drive.google.com/file/d/1_p2KOfF3Cr7zUHNjCEKeeHvXVYNTCjsz/view?usp=sharing","tanggal_upload":"2026-03-10"},
+  {"id":"18","matkul_id":"1","judul_modul":"Pertemuan 3 - Perancangan Sistem Secara Umum","tipe":"link","url_atau_path":"https://drive.google.com/file/d/1llSDQVO3dezPmrrn5qzHN1dVzPoiQVQR/view?usp=drive_link","tanggal_upload":"2026-03-31"},
+  {"id":"19","matkul_id":"1","judul_modul":"Pertemuan 4 - Tahapan Perancangan Sistem","tipe":"link","url_atau_path":"https://drive.google.com/file/d/1Favlm8A9piwhZrhXU-zrv7ckrbDwvlkd/view?usp=sharing","tanggal_upload":"2026-04-08"},
+  {"id":"20","matkul_id":"1","judul_modul":"Pertemuan 5 - Perancangan Berorientasi Objek","tipe":"link","url_atau_path":"https://drive.google.com/file/d/1xzmxb-FK6PosalmG-9A_cs0oZaWVii_w/view?usp=sharing","tanggal_upload":"2026-04-14"},
+  {"id":"21","matkul_id":"1","judul_modul":"Pertemuan 6 - Data Flow Diagram (Part II)","tipe":"link","url_atau_path":"https://drive.google.com/file/d/1p5rvPv0tKtM7FtyaXGtqGr7YQl0RAf2E/view?usp=drive_link","tanggal_upload":"2026-04-22"},
+  {"id":"22","matkul_id":"3","judul_modul":"ISBN","tipe":"link","url_atau_path":"https://drive.google.com/drive/folders/1sc0xs-fVKMtACvvRYlNnHX1n9h1nlYBs?usp=sharing","tanggal_upload":"2026-03-07"},
+  {"id":"23","matkul_id":"3","judul_modul":"PPT","tipe":"link","url_atau_path":"https://drive.google.com/drive/folders/1LKEtTuEZGRaxBlH6HuLspygWW5r2wUzQ?usp=drive_link","tanggal_upload":"2026-03-14"},
+  {"id":"24","matkul_id":"3","judul_modul":"Materi Fordis","tipe":"link","url_atau_path":"https://drive.google.com/drive/folders/1UBCW78-j2O4ckA-SjNVLd-Z1ISCt5YCv?usp=drive_link","tanggal_upload":"2026-03-21"},
+  {"id":"25","matkul_id":"8","judul_modul":"Pertemuan 1 - Konsep Teori Otomata (Automata) Dalam Teori Komputasi","tipe":"link","url_atau_path":"https://drive.google.com/file/d/1EgbRbcHvd8-pksBMrOiVN1hzzMZ_zXYo/view?usp=sharing","tanggal_upload":"2026-04-04"},
+  {"id":"26","matkul_id":"8","judul_modul":"Pertemuan 2 - Tata Bahasa Formal Pada Teori Otomata","tipe":"link","url_atau_path":"https://drive.google.com/file/d/1v-uGxeOHpC3W-snrc2CT1YV0Lr7JNdrL/view?usp=drive_link","tanggal_upload":"2026-04-11"},
+  {"id":"27","matkul_id":"8","judul_modul":"Pertemuan 3 - Tata Bahasa (Grammar) Hirarki Chomsky","tipe":"link","url_atau_path":"https://drive.google.com/file/d/1kjW_1L3zpldsi1wCREUzJpha-7AbUMYz/view?usp=drive_link","tanggal_upload":"2026-04-18"},
+  {"id":"28","matkul_id":"8","judul_modul":"Pertemuan 5 - DFA","tipe":"link","url_atau_path":"https://drive.google.com/file/d/1UblqItlXgIN67cWH-HpdJwBZ3cAV-Rls/view?usp=drive_link","tanggal_upload":"2026-05-02"},
+];
+
+function dataContohMahasiswa() {
+  return _DATA_MAHASISWA;
+}
+
+function dataContohDosen() {
+  /* Gabungkan data dosen dengan mata kuliah yang diajarkan */
+  return _DATA_DOSEN_RAW.map(d => ({
+    ...d,
+    mata_kuliah: _MAP_DOSEN_MATKUL[d.id] || [],
+  }));
+}
+
+function dataContohModul(matkulId) {
+  return _DATA_MODUL.filter(m => m.matkul_id === String(matkulId));
+}
