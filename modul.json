@@ -1,0 +1,34 @@
+[
+{"type":"header","version":"5.2.1","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"tple003"},
+{"type":"table","name":"modul","database":"tple003","data":
+[
+{"id":"1","matkul_id":"6","judul_modul":"Pertemuan 2 - Dasar Pemrograman","tipe":"pdf","url_atau_path":"http:\/\/localhost\/tple003\/uploads\/Pertemuan 2 - Dasar Pemrograman.pdf","tanggal_upload":"2026-03-14"},
+{"id":"2","matkul_id":"2","judul_modul":"Materi Cloud (Drive)","tipe":"link","url_atau_path":"https:\/\/drive.google.com\/GANTI_LINK_INI","tanggal_upload":"2025-02-12"},
+{"id":"5","matkul_id":"6","judul_modul":"Pertemuan 3 - Input & Output Pada Java","tipe":"pdf","url_atau_path":"http:\/\/localhost\/tple003\/uploads\/Pertemuan3.pdf","tanggal_upload":"2026-03-11"},
+{"id":"6","matkul_id":"6","judul_modul":"Pertemuan 4 - Struktur Control","tipe":"pdf","url_atau_path":"http:\/\/localhost\/tple003\/uploads\/Pertemuan 4 - Struktur Control.pdf","tanggal_upload":"2026-04-04"},
+{"id":"7","matkul_id":"6","judul_modul":"Pertemuan 6 - Class","tipe":"pdf","url_atau_path":"http:\/\/localhost\/tple003\/uploads\/Pertemuan 6 - Class.pdf","tanggal_upload":"2026-04-06"},
+{"id":"8","matkul_id":"6","judul_modul":"Pertemuan 7 - Class (Lanjutan)","tipe":"pdf","url_atau_path":"http:\/\/localhost\/tple003\/uploads\/Pertemuan 7 - Class (Lanjutan).pdf","tanggal_upload":"2026-04-18"},
+{"id":"9","matkul_id":"6","judul_modul":"Pertemuan 8 - Pemrograman Berorientasi Objek","tipe":"pdf","url_atau_path":"http:\/\/localhost\/tple003\/uploads\/Pertemuan 8 - Pemrograman Berorientasi Objek.pdf","tanggal_upload":"2026-04-25"},
+{"id":"10","matkul_id":"6","judul_modul":"Pertemuan 9 - Pemrograman Berorientasi Objek","tipe":"pdf","url_atau_path":"http:\/\/localhost\/tple003\/uploads\/Pertemuan 9 - Pemrograman Berorientasi Objek.pdf","tanggal_upload":"2026-04-22"},
+{"id":"11","matkul_id":"6","judul_modul":"Pertemuan 10 - Pemrograman Berorientasi Objek","tipe":"pdf","url_atau_path":"http:\/\/localhost\/tple003\/uploads\/Pertemuan 10 - Pemrograman Berorientasi Objek.pdf","tanggal_upload":"2026-05-02"},
+{"id":"12","matkul_id":"6","judul_modul":"Pertemuan 11 - Exception dan Assertions","tipe":"pdf","url_atau_path":"http:\/\/localhost\/tple003\/uploads\/Pertemuan 11 - Exception dan Assertions.pdf","tanggal_upload":"2026-05-13"},
+{"id":"13","matkul_id":"6","judul_modul":"Pertemuan 12 - Input dan Output Lanjutan","tipe":"pdf","url_atau_path":"http:\/\/localhost\/tple003\/uploads\/Pertemuan 12 - Input dan Output Lanjutan.pdf","tanggal_upload":"2026-05-13"},
+{"id":"14","matkul_id":"6","judul_modul":"Pertemuan 5 - Array","tipe":"pdf","url_atau_path":"http:\/\/localhost\/tple003\/uploads\/Pertemuan 5 - Array.pdf","tanggal_upload":"2026-04-11"},
+{"id":"15","matkul_id":"4","judul_modul":"Pertemuan 1 - Modul ISBN","tipe":"pdf","url_atau_path":"http:\/\/localhost\/tple003\/uploads\/Pertemuan 1 - Modul ISBN.pdf","tanggal_upload":"2026-03-02"},
+{"id":"16","matkul_id":"1","judul_modul":"Pertemuan 1 - Sistem & Analisis Sistem","tipe":"link","url_atau_path":"https:\/\/drive.google.com\/file\/d\/1DJyrHTPT2iHCMWo8-GofZabtEmMWXvGx\/view?usp=sharing","tanggal_upload":"2026-03-03"},
+{"id":"17","matkul_id":"1","judul_modul":"Pertemuan 2 - Metode Sistem","tipe":"link","url_atau_path":"https:\/\/drive.google.com\/file\/d\/1_p2KOfF3Cr7zUHNjCEKeeHvXVYNTCjsz\/view?usp=sharing","tanggal_upload":"2026-03-10"},
+{"id":"18","matkul_id":"1","judul_modul":"Pertemuan 3 - Perancangan Sistem Secara Umum ","tipe":"link","url_atau_path":"https:\/\/drive.google.com\/file\/d\/1llSDQVO3dezPmrrn5qzHN1dVzPoiQVQR\/view?usp=drive_link","tanggal_upload":"2026-03-31"},
+{"id":"19","matkul_id":"1","judul_modul":"Pertemuan 4 - Tahapan Perancangan Sistem","tipe":"link","url_atau_path":"https:\/\/drive.google.com\/file\/d\/1Favlm8A9piwhZrhXU-zrv7ckrbDwvlkd\/view?usp=sharing","tanggal_upload":"2026-04-08"},
+{"id":"20","matkul_id":"1","judul_modul":"Pertemuan 5 - Perancangan Berorientasi Objek","tipe":"link","url_atau_path":"https:\/\/drive.google.com\/file\/d\/1xzmxb-FK6PosalmG-9A_cs0oZaWVii_w\/view?usp=sharing","tanggal_upload":"2026-04-14"},
+{"id":"21","matkul_id":"1","judul_modul":"Pertemuan 6 -Data Flow Diagram (Part II)","tipe":"link","url_atau_path":"https:\/\/drive.google.com\/file\/d\/1p5rvPv0tKtM7FtyaXGtqGr7YQl0RAf2E\/view?usp=drive_link","tanggal_upload":"2026-04-22"},
+{"id":"22","matkul_id":"3","judul_modul":"ISBN","tipe":"link","url_atau_path":"https:\/\/drive.google.com\/drive\/folders\/1sc0xs-fVKMtACvvRYlNnHX1n9h1nlYBs?usp=sharing","tanggal_upload":"2026-03-07"},
+{"id":"23","matkul_id":"3","judul_modul":"PPT","tipe":"link","url_atau_path":"https:\/\/drive.google.com\/drive\/folders\/1LKEtTuEZGRaxBlH6HuLspygWW5r2wUzQ?usp=drive_link","tanggal_upload":"2026-03-14"},
+{"id":"24","matkul_id":"3","judul_modul":"Materi Fordis","tipe":"link","url_atau_path":"https:\/\/drive.google.com\/drive\/folders\/1UBCW78-j2O4ckA-SjNVLd-Z1ISCt5YCv?usp=drive_link","tanggal_upload":"2026-03-21"},
+{"id":"25","matkul_id":"8","judul_modul":"Pertemuan 1 - Konsep Teori Otomata (Automata) Dalam Teori Komputasi","tipe":"link","url_atau_path":"https:\/\/drive.google.com\/file\/d\/1EgbRbcHvd8-pksBMrOiVN1hzzMZ_zXYo\/view?usp=sharing","tanggal_upload":"2026-04-04"},
+{"id":"26","matkul_id":"8","judul_modul":"Pertemuan 2 - Tata Bahasa Formal Pada Teori Otomata","tipe":"link","url_atau_path":"https:\/\/drive.google.com\/file\/d\/1v-uGxeOHpC3W-snrc2CT1YV0Lr7JNdrL\/view?usp=drive_link","tanggal_upload":"2026-04-11"},
+{"id":"27","matkul_id":"8","judul_modul":"Pertemuan 3 - Tata Bahasa (Grammar) Hirarki Chomsky","tipe":"link","url_atau_path":"https:\/\/drive.google.com\/file\/d\/1kjW_1L3zpldsi1wCREUzJpha-7AbUMYz\/view?usp=drive_link","tanggal_upload":"2026-04-18"},
+{"id":"28","matkul_id":"8","judul_modul":"Pertemuan 5 - DFA","tipe":"link","url_atau_path":"https:\/\/drive.google.com\/file\/d\/1UblqItlXgIN67cWH-HpdJwBZ3cAV-Rls\/view?usp=drive_link","tanggal_upload":"2026-05-02"}
+]
+}
+]

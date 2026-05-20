@@ -1,0 +1,16 @@
+[
+{"type":"header","version":"5.2.1","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"tple003"},
+{"type":"table","name":"mata_kuliah","database":"tple003","data":
+[
+{"id":"1","kode":"APS","nama":"Analisa & Perancangan Sistem"},
+{"id":"2","kode":"CC","nama":"Cloud Computing"},
+{"id":"3","kode":"MN","nama":"Metode Numerik"},
+{"id":"4","kode":"IMK","nama":"Interaksi Manusia & Komputer"},
+{"id":"5","kode":"DM","nama":"Data Mining"},
+{"id":"6","kode":"P1","nama":"Pemrograman 1"},
+{"id":"7","kode":"BD1","nama":"Basis Data 1"},
+{"id":"8","kode":"TBA","nama":"Teori Bahasa & Automata"}
+]
+}
+]

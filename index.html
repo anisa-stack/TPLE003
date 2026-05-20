@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TPLE003 — Portal Akademik</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="hero-canvas"></canvas>
+
+  <div id="loading-screen">
+    <div class="loading-content">
+      <div class="loading-hex">
+        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon class="hex-outer" points="60,5 110,32 110,88 60,115 10,88 10,32" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+          <polygon class="hex-mid"   points="60,18 97,39 97,81 60,102 23,81 23,39" stroke="#C9A84C" stroke-width="0.8" fill="none" opacity="0.5"/>
+          <polygon class="hex-inner" points="60,31 84,46 84,74 60,89 36,74 36,46" stroke="#C9A84C" stroke-width="0.5" fill="rgba(201,168,76,0.05)" opacity="0.4"/>
+          <image href="logo.png" x="35" y="35" width="50" height="50" clip-path="circle(25px at 25px 25px)" />
+        </svg>
+      </div>
+      <div class="loading-title">TPLE003</div>
+      <div class="loading-sub">Portal Akademik</div>
+      <div class="loading-bar-wrap">
+        <div class="loading-bar"></div>
+      </div>
+      <div class="loading-label" id="loading-label">Memuat sistem...</div>
+    </div>
+  </div>
+
+  <header id="main-header">
+    <div class="header-inner">
+      <div class="logo-area" onclick="navigateTo('home')">
+        <div class="logo-emblem">
+          <img src="logo.png" alt="Logo TPLE003" style="width:50px; height:50px; border-radius:60%; object-fit:cover;" />
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">TPLE003</span>
+          <span class="logo-sub">Portal Akademik</span>
+        </div>
+      </div>
+
+      <nav class="main-nav" id="main-nav">
+        <button class="nav-btn active" data-page="home" onclick="navigateTo('home')">Beranda</button>
+        <button class="nav-btn" data-page="mahasiswa" onclick="navigateTo('mahasiswa')">Data Mahasiswa</button>
+        <button class="nav-btn" data-page="dosen" onclick="navigateTo('dosen')">Data Dosen</button>
+        <button class="nav-btn" data-page="modul" onclick="navigateTo('modul')">Modul</button>
+      </nav>
+
+      <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-menu-overlay" id="mobile-overlay" onclick="toggleMobileMenu()"></div>
+  <div class="mobile-menu" id="mobile-menu">
+    <button class="nav-btn" onclick="navigateTo('home'); toggleMobileMenu()">Beranda</button>
+    <button class="nav-btn" onclick="navigateTo('mahasiswa'); toggleMobileMenu()">Data Mahasiswa</button>
+    <button class="nav-btn" onclick="navigateTo('dosen'); toggleMobileMenu()">Data Dosen</button>
+    <button class="nav-btn" onclick="navigateTo('modul'); toggleMobileMenu()">Modul</button>
+  </div>
+
+  <main id="app-root">
+
+    <!-- HOME PAGE -->
+    <section class="page active" id="page-home">
+
+      <div class="hero-section">
+        <div class="hero-bg-ornament"></div>
+        <div class="hero-content">
+          <p class="hero-eyebrow">Selamat Datang di</p>
+          <h1 class="hero-title">Portal Kelas <em>TPLE003</em></h1>
+          <p class="hero-desc">Platform terpadu untuk mengakses data mahasiswa, informasi dosen, dan modul pembelajaran Kelas TPLE003. Semua dalam satu tempat yang elegan dan mudah digunakan.</p>
+          <div class="hero-divider"><span></span><svg viewBox="0 0 20 20"><polygon points="10,1 19,6 19,14 10,19 1,14 1,6" stroke="#C9A84C" stroke-width="1" fill="none"/></svg><span></span></div>
+        </div>
+      </div>
+
+      <!-- Photo Carousel -->
+      <div class="carousel-section">
+        <h2 class="section-title">Dokumentasi Kelas</h2>
+        <div class="carousel-wrapper">
+          <div class="carousel-track" id="carousel-track">
+            <div class="carousel-slide">
+              <img src="foto1.jpg" alt="Foto Kelas 1" />
+            </div>
+            <div class="carousel-slide">
+              <img src="foto2.jpg" alt="Foto Kelas 2" />
+            </div>
+            <div class="carousel-slide">
+              <img src="foto3.jpg" alt="Foto Kelas 3" />
+            </div>
+            <div class="carousel-slide">
+              <img src="foto4.jpg" alt="Foto Kelas 4" />
+            </div>
+          </div>
+          <button class="carousel-btn prev" onclick="carouselPrev()" aria-label="Sebelumnya">&#8592;</button>
+          <button class="carousel-btn next" onclick="carouselNext()" aria-label="Berikutnya">&#8594;</button>
+          <div class="carousel-dots" id="carousel-dots"></div>
+        </div>
+      </div>
+
+      <!-- Quick Access Cards -->
+      <div class="quick-cards-section">
+        <h2 class="section-title">Akses Cepat</h2>
+        <div class="quick-cards">
+          <div class="quick-card" onclick="navigateTo('mahasiswa')">
+            <div class="quick-card-icon">
+              <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="16" r="8" stroke="#C9A84C" stroke-width="1.5"/><path d="M8 40c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Data Mahasiswa</h3>
+            <p>Lihat daftar lengkap mahasiswa TPLE003 beserta informasi kontak</p>
+            <span class="card-arrow">→</span>
+          </div>
+          <div class="quick-card" onclick="navigateTo('dosen')">
+            <div class="quick-card-icon">
+              <svg viewBox="0 0 48 48" fill="none"><rect x="8" y="20" width="32" height="22" rx="2" stroke="#C9A84C" stroke-width="1.5"/><path d="M16 20V14a8 8 0 0116 0v6" stroke="#C9A84C" stroke-width="1.5"/><circle cx="24" cy="31" r="3" stroke="#C9A84C" stroke-width="1.5"/></svg>
+            </div>
+            <h3>Data Dosen</h3>
+            <p>Informasi pengajar beserta mata kuliah yang diampu di kelas ini</p>
+            <span class="card-arrow">→</span>
+          </div>
+          <div class="quick-card" onclick="navigateTo('modul')">
+            <div class="quick-card-icon">
+              <svg viewBox="0 0 48 48" fill="none"><path d="M12 6h24v36H12z" stroke="#C9A84C" stroke-width="1.5" stroke-linejoin="round"/><path d="M18 14h12M18 20h12M18 26h8" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Modul Pembelajaran</h3>
+            <p>Akses dan unduh modul perkuliahan dari setiap mata kuliah</p>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- MAHASISWA PAGE -->
+    <section class="page" id="page-mahasiswa">
+      <div class="page-header">
+        <div class="page-header-inner">
+          <h1 class="page-title">Data Mahasiswa</h1>
+          <p class="page-subtitle">Daftar lengkap mahasiswa Kelas TPLE003</p>
+        </div>
+        <div class="gold-line"></div>
+      </div>
+      <div class="content-container">
+        <div class="table-controls">
+          <div class="search-box">
+            <svg viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6" stroke="#C9A84C" stroke-width="1.5"/><path d="M13 13l4 4" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <input type="text" id="search-mahasiswa" placeholder="Cari nama atau NIM..." oninput="filterMahasiswa()" />
+          </div>
+          <div class="record-count" id="mahasiswa-count">Memuat data...</div>
+        </div>
+        <div class="luxury-table-wrap">
+          <table class="luxury-table" id="table-mahasiswa">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>NIM</th>
+                <th>Nama Mahasiswa</th>
+                <th>No. Telepon</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-mahasiswa">
+              <tr><td colspan="4" class="loading-row"><div class="loading-spinner"></div> Menghubungkan ke database...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOSEN PAGE -->
+    <section class="page" id="page-dosen">
+      <div class="page-header">
+        <div class="page-header-inner">
+          <h1 class="page-title">Data Dosen</h1>
+          <p class="page-subtitle">Informasi pengajar Kelas TPLE003</p>
+        </div>
+        <div class="gold-line"></div>
+      </div>
+      <div class="content-container">
+        <div class="table-controls">
+          <div class="search-box">
+            <svg viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6" stroke="#C9A84C" stroke-width="1.5"/><path d="M13 13l4 4" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <input type="text" id="search-dosen" placeholder="Cari nama atau NIDN..." oninput="filterDosen()" />
+          </div>
+          <div class="record-count" id="dosen-count">Memuat data...</div>
+        </div>
+        <div class="luxury-table-wrap">
+          <table class="luxury-table" id="table-dosen">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>NIDN</th>
+                <th>Nama Dosen</th>
+                <th>Jenis Kelamin</th>
+                <th>No. Telepon</th>
+                <th>Mata Kuliah Diampu</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-dosen">
+              <tr><td colspan="6" class="loading-row"><div class="loading-spinner"></div> Menghubungkan ke database...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODUL PAGE -->
+    <section class="page" id="page-modul">
+      <div class="page-header">
+        <div class="page-header-inner">
+          <h1 class="page-title">Modul Pembelajaran</h1>
+          <p class="page-subtitle">Pilih mata kuliah untuk melihat modul tersedia</p>
+        </div>
+        <div class="gold-line"></div>
+      </div>
+      <div class="content-container">
+        <div class="matkul-grid" id="matkul-grid"></div>
+      </div>
+    </section>
+
+    <!-- MODUL DETAIL PAGE -->
+    <section class="page" id="page-modul-detail">
+      <div class="page-header">
+        <div class="page-header-inner">
+          <h1 class="page-title" id="detail-matkul-title">Nama Mata Kuliah</h1>
+          <p class="page-subtitle">Daftar modul tersedia</p>
+        </div>
+        <div class="gold-line"></div>
+      </div>
+      <div class="content-container">
+        <div class="modul-list" id="modul-list"></div>
+        <div class="back-btn-wrap">
+          <button class="btn-back" onclick="navigateTo('modul')">
+            <svg viewBox="0 0 20 20" fill="none"><path d="M12 4l-6 6 6 6" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Kembali ke Daftar Mata Kuliah
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <button class="info-fab" id="info-fab" onclick="toggleInfoPanel()" aria-label="Informasi">
+    <span>i</span>
+  </button>
+
+  <div class="info-panel" id="info-panel">
+    <div class="info-panel-header">
+      <h3>Panduan Penggunaan</h3>
+      <button onclick="toggleInfoPanel()" class="info-close">&times;</button>
+    </div>
+    <div class="info-panel-body">
+      <div class="info-item">
+        <div class="info-num">01</div>
+        <div>
+          <strong>Beranda</strong>
+          <p>Halaman utama berisi deskripsi portal, foto dokumentasi kelas, dan tombol akses cepat ke setiap bagian.</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-num">02</div>
+        <div>
+          <strong>Data Mahasiswa</strong>
+          <p>Berisi NIM, nama, dan nomor telepon semua mahasiswa TPLE003. Gunakan kotak pencarian untuk mencari mahasiswa tertentu.</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-num">03</div>
+        <div>
+          <strong>Data Dosen</strong>
+          <p>Berisi NIDN, nama, nomor telepon dosen, dan mata kuliah yang mereka ampu di kelas ini.</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-num">04</div>
+        <div>
+          <strong>Modul Pembelajaran</strong>
+          <p>Pilih mata kuliah terlebih dahulu, lalu klik modul yang ingin diunduh atau buka tautannya. Modul bisa berupa file PDF atau tautan Google Drive.</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-num">05</div>
+        <div>
+          <strong>Navigasi</strong>
+          <p>Gunakan menu di atas untuk berpindah halaman. Di HP, tombol kembali bawaan juga berfungsi. Di laptop, tombol ← → browser bekerja normal.</p>
+        </div>
+      </div>
+    </div>
+    <div class="info-panel-footer">
+      <small>Portal Akademik TPLE003 &mdash; Semua data terhubung ke MySQL</small>
+    </div>
+  </div>
+  <div class="info-overlay" id="info-overlay" onclick="toggleInfoPanel()"></div>
+
+  <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-logo" onclick="navigateTo('home')">
+          <img src="logo.png" alt="Logo" style="width:32px; height:32px; border-radius:50%; object-fit:cover;" />
+          <span>TPLE003</span>
+        </div>
+        <p class="footer-copy">© 2025 Kelas TPLE003 — Universitas Pamulang. All rights reserved.</p>
+        <p class="footer-sub">Portal Akademik · Data terhubung ke MySQL</p>
+      </div>
+  </footer>
+
+  <div id="loading-transition">
+    <div class="lt-content">
+      <div class="lt-hex">
+        <svg viewBox="0 0 60 60" fill="none">
+          <polygon class="lt-hex-outer" points="30,3 55,17 55,43 30,57 5,43 5,17" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+          <polygon class="lt-hex-mid" points="30,12 46,21 46,39 30,48 14,39 14,21" stroke="#C9A84C" stroke-width="0.8" fill="none" opacity="0.5"/>
+          <image href="logo.png" x="15" y="15" width="30" height="30" clip-path="circle(15px at 15px 15px)" />
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

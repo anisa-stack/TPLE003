@@ -1,0 +1,16 @@
+[
+{"type":"header","version":"5.2.1","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"tple003"},
+{"type":"table","name":"dosen","database":"tple003","data":
+[
+{"id":"1","nidn":"0404078507","nama":"Joko Suwarno, S.Kom., M.Kom.","jenis_kelamin":"Laki-Laki","no_telepon":"081280616831"},
+{"id":"2","nidn":"0403128603","nama":"Jaka Sutresna, S.Kom., M.Kom.","jenis_kelamin":"Laki-Laki","no_telepon":"0881388994453"},
+{"id":"3","nidn":"0426109102","nama":"Jupron, S.Kom., M.Kom.","jenis_kelamin":"Laki-Laki","no_telepon":"081382301282"},
+{"id":"4","nidn":"0401066503","nama":"Hadi Zakaria, S.Kom., M.M., M.Kom","jenis_kelamin":"Laki-Laki","no_telepon":"087778597991"},
+{"id":"5","nidn":"0415079106","nama":"Zurnan Alfian, S.Kom., M.Kom","jenis_kelamin":"Laki-Laki","no_telepon":"08998444195"},
+{"id":"6","nidn":"0311099102","nama":"Galuh Saputri, S.Kom., M.Kom.","jenis_kelamin":"Perempuan","no_telepon":"082213303751"},
+{"id":"7","nidn":"0405109203","nama":"Octaviana Anugrah Ade Purnama, S.Kom., M.Kom.","jenis_kelamin":"Laki-Laki","no_telepon":"083870132186"},
+{"id":"8","nidn":"0320039201","nama":"Iis Aisyah, S.Kom., M.Kom.","jenis_kelamin":"Perempuan","no_telepon":"088211251617"}
+]
+}
+]
